@@ -28,3 +28,4 @@ $BENCHMARK/neo4j/import.sh "pokec.db" $DB $BENCHMARK
 END=`date +%s`
 echo "Import took: $((END - START)) seconds"
 
+skip rest of pipeline executio

@@ -75,11 +75,19 @@ for i in `seq 0 ${LOOP_COUNT}`; do
     node benchmark ${DB} -a ${TEST_IP} -t ${TESTS} | tee /tmp/testrundata.txt
 
     scp ${RUSER}@${TEST_IP}:${RESOURCE_USAGE_PATH} ${RESULT_PATH}
-
+    echo "RESOURCE_USAGE_PATH== "${RESOURCE_USAGE_PATH}
+    echo "RESULT_PATH== "${RESULT_PATH}
+    echo "RESOURCE_USAGE_FILE== "${RESOURCE_USAGE_FILE}
+    echo "MATCH_PS== "${MATCH_PS}
+    echo "reader file name== "${RESULT_PATH}${RESOURCE_USAGE_FILE}
     MAX_RSS="`sort -n -t ';' -k 5 < ${RESULT_PATH}${RESOURCE_USAGE_FILE} | fgrep $MATCH_PS | fgrep -v "<defunct>;" | tail -n 1 | awk '-F;' '{print $5}'`"
     MAX_PCPU="`sort -n -t ';' -k 6 < ${RESULT_PATH}${RESOURCE_USAGE_FILE} | fgrep $MATCH_PS | fgrep -v "<defunct>;" | tail -n 1 | awk '-F;' '{print $6}'`"
     MAX_TIME="`cat ${RESULT_PATH}${RESOURCE_USAGE_FILE} | fgrep $MATCH_PS | fgrep -v "<defunct>;" | tail -n 1 | awk '-F;' '{print $3 \";\" $4}'`"
 
+    echo "writer file name=="${RESULT_PATH}${FILENAME}.csv
+    echo "MAX_TIME=="${MAX_TIME}
+    echo "MAX_PCPU=="${MAX_PCPU}
+    echo "MAX_RSS=="${MAX_RSS}
     (echo -n "$PADDING"; cat /tmp/testrundata.txt | \
         sed -e "s/.*does not implement.*/Total: 0 ms/" | \
         grep Total |\

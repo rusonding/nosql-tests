@@ -153,8 +153,10 @@ stop_Neo4j() {
 start_Neo4j() {
     cd ${DBFOLDER}/neo4j
     ./bin/neo4j start
-    NEO4J_PID=`pidof java`
-
+    #NEO4J_PID=`pidof java`
+    NEO4J_PID=`ps -ef | grep "org.neo4j.server.CommunityEntryPoint"  | grep -v grep | awk '{print $2}'`
+    echo "NEO4J_PID=="$NEO4J_PID
+    echo "AWKCMD=="$AWKCMD
     nohup bash -c "
 while true; do
     sleep 1
