@@ -88,6 +88,7 @@ for i in `seq 0 ${LOOP_COUNT}`; do
     echo "MAX_TIME=="${MAX_TIME}
     echo "MAX_PCPU=="${MAX_PCPU}
     echo "MAX_RSS=="${MAX_RSS}
+    echo "PADDING=="${PADDING}
     (echo -n "$PADDING"; cat /tmp/testrundata.txt | \
         sed -e "s/.*does not implement.*/Total: 0 ms/" | \
         grep Total |\

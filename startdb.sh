@@ -134,7 +134,8 @@ start_OrientDB() {
     cd ${DBFOLDER}/orientdb
     ./bin/server.sh -Xmx28G -Dstorage.wal.maxSize=28000 > /var/tmp/orientdb.log 2>&1 &
     sleep 3
-    ORIENTDB_PID=`pidof java`
+#    ORIENTDB_PID=`pidof java`
+    ORIENTDB_PID=`ps -ef | grep "com.orientechnologies.orient.server.OServerMain"  | grep -v grep | awk '{print $2}'`
 
     nohup bash -c "
 while true; do
